@@ -1,6 +1,7 @@
 # The Unofficial Guide
 
-<!-- Replace this line with your name and which corpus you picked. -->
+Name: Prerana Bajracharya
+Corpus: `advice_threads`
 
 > **This file is your submission.** Fill it in as you go — most sections get
 > written during the milestone that produces them, not at the end.
@@ -21,11 +22,14 @@
 
 ## What This Does
 
-<!-- Three or four sentences. Which corpus you picked, and the kinds of
-     questions your system answers. Write it for someone who has never seen
-     this repo.
-
-     Milestone 5. -->
+This project builds a searchable unofficial guide from the `advice_threads`
+corpus, which contains student questions and replies about college life. It
+can answer specific questions about internships, laptops, roommates, study
+locations, and communicating with professors. The system retrieves the most
+relevant advice thread, checks whether the match is strong enough, and then
+generates an answer using the retrieved documents. Answers include the source
+filename, and unrelated questions are rejected when the relevance gate does
+not find enough information.
 
 ## Chunking Strategy
 
@@ -36,16 +40,7 @@ I chose this strategy because the advice_threads documents are short and each do
 
 ## Sample Chunks
 
-<!-- Five chunks, pasted as text. Label each one and name the file it came from
-     AND the function that produced it — the grader checks your code against
-     what you claim here.
-
-     `python app.py chunks -n 5` prints all three for you. Copy them straight
-     across.
-
-     Milestone 3. -->
-
-**Chunk 1** — source: `thread_office_hours_etiquette.txt#0` — produced by: `chunker.py::split_documents`
+**Chunk 1** — source: `thread_bike_commute.txt#0` — produced by: `chunker.py::split_documents`
 
 ```
 THREAD: Is a bike worth it for a 20 minute walk commute?
@@ -159,18 +154,18 @@ the cutoff at 0.6, in the gap between the two groups.
 
 ## How I Used AI
 
-<!-- Two specific moments. For each: what you asked for, what came back, and
-     what you changed about it.
+**1.** I asked AI to review my five test questions and acceptance criteria for
+Milestone 2 and identify whether each one had a measurable target. It pointed
+out that the chunk-quality and multiple-perspectives criteria needed clearer
+ways to judge them, so I rewrote those criteria to specify 4 of 5 and describe
+what counts as a complete chunk or distinct advice point.
 
-     "I asked Claude to write the chunking function from my notes. It ignored
-     the overlap, so I added that myself" is the level of detail we're after.
-     "I used AI to help me code" is not.
-
-     Milestone 5. -->
-
-**1.**
-
-**2.**
+**2.** I asked AI to suggest a chunking strategy for the short question-and-
+reply documents in `advice_threads`. It suggested keeping each complete thread
+together instead of using fixed character windows, so I implemented
+`chunker.py::split_documents` with one document per chunk and zero overlap. I
+then re-indexed the corpus, inspected the distances, and used the measured gap
+between in-scope and out-of-scope questions to document a `0.6` cutoff.
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
