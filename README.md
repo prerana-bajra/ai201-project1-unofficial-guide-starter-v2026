@@ -125,30 +125,37 @@ Empty office hours is the biggest unused resource here and I say that having was
 
 ## Sample Answer
 
-<!-- One complete question and answer, pasted as text, with the source line
-     visible. Milestone 4. -->
+**Question:** When should students start looking for a summer internship?
 
-**Question:**
-
-**Answer:**
+**Answer:** Students should start looking for a summer internship earlier than
+feels reasonable, as large employers close applications in October and November
+for the following summer. Smaller and local employers hire in February and
+March if students miss the autumn recruiting period. Source:
+`thread_internship_timing.txt`.
 
 ```
+Best distance: 0.267
+Cutoff: 0.6
 ```
 
-**My relevance cutoff:**
+**My relevance cutoff:** 0.6
 
-<!-- The number you set in config.py, and how you got there.
-
-     You ran five questions your corpus covers and the five in OUT_OF_SCOPE
-     that it clearly doesn't, and wrote down the best distance for each. What
-     did those two groups look like? Where was the gap? Put the actual numbers
-     here — the table below wants all ten rows.
-
-     Milestone 4. -->
+The five in-corpus questions had best distances from 0.2790 to 0.4037. The
+five out-of-scope questions had best distances from 0.8280 to 0.9479. I placed
+the cutoff at 0.6, in the gap between the two groups.
 
 | Question | In corpus? | Best distance |
 |---|---|---|
-|  |  |  |
+| When should students start looking for a summer internship, and how does timing differ between large and local employers? | Yes | 0.2790 |
+| What laptop specification do students say matters most for CS courses, and what alternatives are available for demanding assignments? | Yes | 0.2918 |
+| What steps do students recommend taking when a roommate situation is not working? | Yes | 0.2872 |
+| What study locations do students recommend besides the library, and what are the advantages of each? | Yes | 0.4037 |
+| When should students email professors, and when are office hours a better option? | Yes | 0.3006 |
+| What is the capital of Mongolia? | No | 0.9479 |
+| How do I change the oil in a diesel engine? | No | 0.9299 |
+| Who won the 1994 World Cup? | No | 0.9517 |
+| What is the recommended dosage of ibuprofen for a headache? | No | 0.8280 |
+| How do I write a for loop in Rust? | No | 0.8712 |
 
 ## How I Used AI
 
