@@ -284,22 +284,13 @@ than two sentences. Each run therefore scored 5/5.
 
 ## Verdicts
 
-<!-- MET or MISSED for each of the five, against the target you wrote last
-     unit — not a new one. Plus a sentence on how you decided. That sentence
-     matters most where it was close.
-
-     If your target said 4 of 5 and your runs came out 4, 3, 4, that's a MISS.
-     The target has to hold, not show up occasionally.
-
-     Milestone 2. -->
-
 | # | Criterion | Verdict | How I decided |
 |---|---|---|---|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
+| 1 | Retrieved chunks contain the answer | MET | All five questions had a retrieved chunk containing the relevant answer in all three runs, exceeding the target of 4/5. |
+| 2 | Every answer names a source | MET | Every generated answer named at least one source document in all three runs, meeting the target of 5/5. |
+| 3 | The relevance gate stops out-of-corpus questions | MET | The gate refused all five out-of-corpus questions, exceeding the target of 4/5. |
+| 4 | Chunk quality | MET | All five sampled chunks preserved a complete advice thread with its question and replies, meeting the target of 4/5. |
+| 5 | Multiple perspectives are represented | MET | Each answer included at least two distinct advice points traceable to the retrieved advice thread, meeting the target of 4/5 in every run. |
 
 ## Diagnoses
 
