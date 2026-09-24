@@ -294,23 +294,23 @@ than two sentences. Each run therefore scored 5/5.
 
 ## Diagnoses
 
-<!-- For each miss: which stage caused it, and how. The stage alone isn't
-     enough — you need the mechanism.
+No criteria were missed in the before evaluation, so there was no failed
+pipeline stage to diagnose. The loading stage provided the correct
+advice_threads corpus. The chunking stage kept each question and its replies
+together in one chunk. Retrieval returned the relevant thread within the top
+five results for all five questions. Generation used those chunks to produce
+answers with source filenames and multiple advice points. The relevance gate
+also refused all five out-of-corpus questions.
 
-     Not a diagnosis: "Question 3 didn't work."
-     A diagnosis:     "Question 3 asks about laundry costs. The answer is in
-                       one sentence that got split across two chunks, so
-                       neither chunk on its own contains it."
+The initial scorer produced false failures for the professor-email question
+because it required the exact text `48 hours`, while the answer used the
+equivalent form `48-hour`. This was a scorer matching problem, not a failure
+of retrieval or generation. I corrected the expected value to `48`.
 
-     The five stages: loading → chunking → embedding → retrieval → generation.
-
-     Look for a pattern. If three misses all ask about numbers, that's one
-     problem, not three.
-
-     Missed nothing? Say so, then say honestly whether your targets were set
-     low, and which one you'd tighten and to what.
-
-     Milestone 3. -->
+Because every criterion passed, the targets may have been too conservative.
+In a future, I would tighten Criterion 1 from 4 of 5 to 5 of 5 and
+Criterion 3 from 4 of 5 to 5 of 5, since the measured results achieved 5 of 5
+consistently. I would also change to a different corpus to test if the results are robust to different content, since the advice_threads corpus is small and the questions are very similar.
 
 ## The Improvement
 
