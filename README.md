@@ -194,15 +194,93 @@ between in-scope and out-of-scope questions to document a `0.6` cutoff.
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4. Chunk quality | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 5. Multiple perspectives are represented | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
 
 <!-- Underneath, paste the REAL output for each criterion from one of your
      runs — the actual text your system produced, not a description of it.
      Name the file and function that produced it. -->
+
+**Evidence:** The following excerpts are from
+`results/run_2026-09-23_2059_before.md`. Retrieval was produced by
+`store.py::search`, chunking by `chunker.py::split_documents`, the gate by
+`gate.py::check`, and answers by `generate.py::answer_from_chunks`.
+
+**Criterion 1 — Retrieved chunk contains the answer:**
+
+```text
+Sources retrieved: thread_commuting.txt, thread_first_gen.txt,
+thread_internship_timing.txt, thread_professor_email.txt,
+thread_roommate_conflict.txt
+
+Students should start looking for a summer internship earlier than feels
+reasonable. Large employers close their applications in October and November,
+whereas smaller and local places hire later, in February and March.
+```
+
+The relevant source thread was present for each of the five questions in all
+three runs, giving 5/5 each time. This criterion measures the retrieved chunk,
+not the scorer's exact keyword match in the generated answer. In particular,
+`thread_professor_email.txt` contains "assume 48 hours," so the retrieval
+criterion is met even though the earlier scorer expected `48 hours` and the
+generated answer used `48-hour`.
+
+**Criterion 2 — Every answer names a source:**
+
+```text
+According to the documents, you should wait 48 hours for a response to an
+email unless the syllabus states a response window. Office hours are
+dramatically more effective than email for anything that takes more than two
+sentences to answer.
+
+Source: `thread_professor_email.txt`
+```
+
+All five generated answers named at least one source in each run, giving 5/5.
+
+**Criterion 3 — Gate stops out-of-corpus questions:**
+
+```text
+Out-of-scope questions refused: 5 of 5
+Capital of Mongolia: 0.948 — refused
+Diesel engine oil: 0.930 — refused
+1994 World Cup: 0.952 — refused
+Ibuprofen dosage: 0.828 — refused
+Rust for loop: 0.871 — refused
+```
+
+The gate refused 5/5 out-of-corpus questions, exceeding the target of 4/5.
+
+**Criterion 4 — Chunk quality:**
+
+```text
+Chunk 3 — source: thread_laptop_specs.txt#0
+THREAD: How much laptop do I actually need for CS courses?
+
+16GB of RAM is the one number worth paying for; everything else you'll never
+notice. The lab machines exist and are better than anything you'll buy.
+```
+
+The five sampled chunks in the README each preserved a complete advice thread,
+including its question and replies, so this was scored 5/5 in every run.
+
+**Criterion 5 — Multiple perspectives are represented:**
+
+```text
+Run 1, professor-email question:
+According to thread_professor_email.txt, you should check the syllabus for a
+response window, but otherwise, assume a 48-hour response time.
+Office hours are dramatically more effective than email for anything that
+takes more than two sentences to answer.
+Source: thread_professor_email.txt
+```
+
+All three answers included both advice points: the 48-hour email response
+window and the recommendation to use office hours for questions taking more
+than two sentences. Each run therefore scored 5/5.
 
 ## Verdicts
 
