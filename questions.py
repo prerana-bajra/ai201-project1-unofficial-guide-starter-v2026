@@ -40,7 +40,7 @@ QUESTIONS = [
     },
     {
         "question": "When should students email professors, and when are office hours a better option?",
-        "expects": "48 hours",
+        "expects": "48",
     },
 ]
 
