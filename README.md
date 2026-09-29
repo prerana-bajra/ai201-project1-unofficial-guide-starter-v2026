@@ -314,9 +314,16 @@ consistently. I would also change to a different corpus to test if the results a
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** I strengthened `generate.py::GROUNDING_INSTRUCTION` so
+the model must address every part of the question, include at least two
+distinct relevant points when the documents support them, and name the source
+document.
 
-**Why I picked it:**
+**Why I picked it:** The existing system already retrieved complete threads,
+but a generation prompt should explicitly protect against answering only one
+part of a multi-part question or omitting a second useful advice point. This
+change targets answer completeness without changing retrieval, chunking, or
+the relevance gate.
 
 <!-- Connect it to a specific diagnosis above in one sentence. If you can't,
      you picked a fix because it sounded impressive. -->
@@ -328,13 +335,31 @@ consistently. I would also change to a different corpus to test if the results a
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4. Chunk quality | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 5. Multiple perspectives are represented | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+
+The complete after transcript is in
+`results/run_2026-09-29_0121_after_prompt.md`. Representative output from
+the improved `generate.py::answer_from_chunks` path:
+
+```text
+According to `thread_professor_email.txt`, you should assume a 48-hour
+response window for emails if one is not stated in the syllabus. Office hours
+are a better option for anything that takes more than two sentences to answer,
+and they are usually empty.
+```
 
 **Did it help?**
+
+The measured scores stayed the same: all five criteria were already 5/5 in
+the before run, and they remained 5/5 in all three after runs. The improvement
+did not increase the totals, but it made the completeness requirement
+explicit and the after answers consistently addressed both parts of the
+multi-part questions while naming their source. The after run also refused
+5/5 out-of-corpus questions, as before.
 
 <!-- Say plainly whether it did, and how you know. If it made things worse,
      say that — a change that backfired, honestly reported, earns full credit
