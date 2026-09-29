@@ -167,6 +167,11 @@ together instead of using fixed character windows, so I implemented
 then re-indexed the corpus, inspected the distances, and used the measured gap
 between in-scope and out-of-scope questions to document a `0.6` cutoff.
 
+**3.** During this unit, I used AI to diagnose the initial corpus mismatch and
+the scorer's `48 hours` versus `48-hour` false failure. I also used it to
+review the before results, strengthen `generate.py::GROUNDING_INSTRUCTION`,
+and compare the three-run after results against the original criteria.
+
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
      claims earns nothing.
@@ -307,11 +312,6 @@ because it required the exact text `48 hours`, while the answer used the
 equivalent form `48-hour`. This was a scorer matching problem, not a failure
 of retrieval or generation. I corrected the expected value to `48`.
 
-**3.** During this unit, I used AI to diagnose the initial corpus mismatch and
-the scorer's `48 hours` versus `48-hour` false failure. I also used it to
-review the before results, strengthen `generate.py::GROUNDING_INSTRUCTION`,
-and compare the three-run after results against the original criteria.
-
 Because every criterion passed, the targets may have been too conservative.
 In a future, I would tighten Criterion 1 from 4 of 5 to 5 of 5 and
 Criterion 3 from 4 of 5 to 5 of 5, since the measured results achieved 5 of 5
@@ -320,12 +320,6 @@ consistently. I would also change to a different corpus to test if the results a
 ## The Improvement
 
 **What I changed:** I strengthened `generate.py::GROUNDING_INSTRUCTION` so
-
-I would address these limitations by adding questions from more topics and
-making the scorer support normalized phrases or manual evidence checks. I
-stopped after the prompt improvement because the required criteria were
-already passing and the change had been measured honestly, even though it did
-not increase the numeric scores.
 the model must address every part of the question, include at least two
 distinct relevant points when the documents support them, and name the source
 document.
@@ -382,6 +376,19 @@ multi-part questions while naming their source. The after run also refused
 
 ## What's Still Broken
 
+All five criteria were still met after the improvement, so no measured
+criterion remains broken. The system does have two limitations: the
+`advice_threads` corpus is small and focused on a narrow set of topics, and
+the scorer uses simple keyword matching rather than checking meaning. The
+original scorer demonstrated how equivalent wording can create a false
+failure, such as `48-hour` versus `48 hours`.
+
+I would address these limitations by adding questions from more topics and
+making the scorer support normalized phrases or manual evidence checks. I
+stopped after the prompt improvement because the required criteria were
+already passing and the change had been measured honestly, even though it did
+not increase the numeric scores.
+
 <!-- For each criterion still missed after your fix: what you'd do about it,
      and why you stopped where you did.
 
@@ -391,6 +398,13 @@ multi-part questions while naming their source. The after run also refused
      Milestone 5. -->
 
 ## What I'd Do Differently
+
+I would define the scorer's matching rules before the first evaluation,
+including equivalent forms such as `48-hour` and `48 hours`. I would also
+make Criterion 1 and Criterion 3 stricter by targeting 5/5 instead of 4/5,
+because the system achieved 5/5 consistently. Finally, I would add more
+diverse test questions so the results measured robustness beyond these five
+closely related advice topics.
 
 <!-- Knowing what you know now — which of your five criteria would you write
      differently, and why?
