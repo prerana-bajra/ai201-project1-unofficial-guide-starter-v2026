@@ -307,6 +307,11 @@ because it required the exact text `48 hours`, while the answer used the
 equivalent form `48-hour`. This was a scorer matching problem, not a failure
 of retrieval or generation. I corrected the expected value to `48`.
 
+**3.** During this unit, I used AI to diagnose the initial corpus mismatch and
+the scorer's `48 hours` versus `48-hour` false failure. I also used it to
+review the before results, strengthen `generate.py::GROUNDING_INSTRUCTION`,
+and compare the three-run after results against the original criteria.
+
 Because every criterion passed, the targets may have been too conservative.
 In a future, I would tighten Criterion 1 from 4 of 5 to 5 of 5 and
 Criterion 3 from 4 of 5 to 5 of 5, since the measured results achieved 5 of 5
@@ -315,6 +320,12 @@ consistently. I would also change to a different corpus to test if the results a
 ## The Improvement
 
 **What I changed:** I strengthened `generate.py::GROUNDING_INSTRUCTION` so
+
+I would address these limitations by adding questions from more topics and
+making the scorer support normalized phrases or manual evidence checks. I
+stopped after the prompt improvement because the required criteria were
+already passing and the change had been measured honestly, even though it did
+not increase the numeric scores.
 the model must address every part of the question, include at least two
 distinct relevant points when the documents support them, and name the source
 document.
@@ -324,6 +335,7 @@ but a generation prompt should explicitly protect against answering only one
 part of a multi-part question or omitting a second useful advice point. This
 change targets answer completeness without changing retrieval, chunking, or
 the relevance gate.
+
 
 <!-- Connect it to a specific diagnosis above in one sentence. If you can't,
      you picked a fix because it sounded impressive. -->
